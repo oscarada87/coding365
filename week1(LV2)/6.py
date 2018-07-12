@@ -24,40 +24,32 @@ class node:
         else:
             return False
 
-def splitTree(preorder, inorder, nodeList, root = None, count = 0):
-    try:
-        devide = inorder.index(preorder[count])
-    except ValueError:
-        count = count + 1
-        if count >= len(preorder):
-            return 0
-
-        print('count:',count)
-        splitTree(preorder, inorder, nodeList, nodeList[-1], count)
-    leftList = inorder[:devide]
-    print('leftList:', leftList)
-    rightList = inorder[devide + 1:]
-    print('rightList:', rightList)
-    nodeList.append(node(preorder[count]))
-    if root == None:
-        pass
-    else:
-        nodeList[-1].setFather(root)
-        if root.getLeft() == None:
-            root.setLeft(nodeList[-1])
-        else:
-            root.setRight(nodeList[-1])
-    count = count + 1
-    if count >= len(preorder):
+def splitTree(number, preorder, inorder, nodeList, father, flag = 0):
+    if len(inorder) == 0:
         return 0
-    splitTree(preorder, leftList, nodeList, nodeList[-1], count)
-    splitTree(preorder, rightList, nodeList, nodeList[-1], count)
+    index = inorder.find(preorder[number])
+    if index == -1:
+        splitTree(number + 1, preorder, inorder, nodeList, father, flag)
+        return 0
+    leftList = inorder[:index]
+    # print('leftList:', leftList)
+    rightList = inorder[index + 1:]
+    # print('rightList:', rightList)
+    nodeList.append(node(preorder[number]))
+    if flag == 0:
+        pass
+    elif flag == 1:
+        father.setLeft(nodeList[-1])
+    elif flag == 2:
+        father.setRight(nodeList[-1])
+    splitTree(number + 1, preorder, leftList, nodeList, nodeList[-1], 1)
+    splitTree(number + 1, preorder, rightList, nodeList, nodeList[-1], 2)
 
 def main():
     nodeList = []
     preorder = 'ABDECF'
     inorder = 'DBEAFC'
-    splitTree(preorder, inorder,nodeList)
+    splitTree(preorder, inorder, nodeList)
     for i in nodeList:
         print(i.getNumber())
 
