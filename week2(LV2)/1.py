@@ -1,27 +1,58 @@
-class component(object):
-    def __init__(self, name, cost, id):
-        self.__name = name
-        self.__cost = cost
-        self.__id = id
+import abc
+
+class Part:
+    @abc.abstractmethod
     def getName(self):
-        return self.__name
-    def getCost(self):
-        return self.__cost
-    def getId(self):
-        return self.__id
+        return NotImplemented
+    @abc.abstractmethod
+    def getPrice(self):
+        return NotImplemented
+    @abc.abstractmethod
     def info(self):
-        print('id:', self.__id)
-        print('name:', self.__name)
-        print('cost:', self.__cost)
+        return NotImplemented
 
+class CPU(Part):
+    def getName(self):
+        return 'CPU'
+    def getPrice(self):
+        return 20
+    def info(self):
+        print('name: ', 'CPU')
+        print('cost: ', 20)
 
-class CPU(component):
-    def __init__(self, name, cost, id):
-        super(CPU, self).__init__(name, cost, id)
+class HD(Part):
+    def getName(self):
+        return 'HD'
+    def getPrice(self):
+        return 35
+    def info(self):
+        print('name: ', 'HD')
+        print('cost: ', 35)
 
-    def test(self):
-        print('test')
+class RAM(Part):
+    def getName(self):
+        return 'RAM'
+    def getPrice(self):
+        return 50
+    def info(self):
+        print('name: ', 'RAM')
+        print('cost: ', 50)
 
-A = CPU('AAA', 20, 1)
-A.info()
-A.test()
+class register:
+    def __init__(self):
+        self.partList = []
+    def addPart(self, part):
+        self.partList.append(part)
+    def total(self):
+        amount = 0
+        for i in self.partList:
+            amount = amount + i.getPrice()
+        print('total: ', amount)
+
+reg = register()
+reg.addPart(CPU())
+reg.addPart(HD())
+reg.addPart(CPU())
+reg.addPart(RAM())
+reg.addPart(CPU())
+reg.total()
