@@ -1,6 +1,6 @@
 import abc
 
-class Part:
+class Part(abc.ABC):
     @abc.abstractmethod
     def getName(self):
         return NotImplemented

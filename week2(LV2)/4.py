@@ -1,7 +1,7 @@
 import abc
 
 # Adaptee Interface
-class LegacyModule(metaclass = abc.ABCMeta):
+class LegacyModule(abc.ABC):
     @abc.abstractmethod
     def click(self):
         return NotImplemented
@@ -33,20 +33,9 @@ class clientInterface(metaclass = abc.ABCMeta):
     def mouseRightClick(self):
         return NotImplemented
 
-#  Target
-class client(clientInterface):
-    def __init__(self, mouse = None):
-        self.mouse = mouse
-    def mouseClick(self):
-        self.mouse.mouseClick()
-    def mouseDbClick(self):
-        self.mouse.mouseDbClick()
-    def mouseRightClick(self):
-        self.mouse.mouseRightClick()
-
 # Adapter
 class Adapter(clientInterface):
-    def __init__(self, old = None):
+    def __init__(self, old):
         self.old = old
     def mouseClick(self):
         return self.old.click()
@@ -55,10 +44,10 @@ class Adapter(clientInterface):
     def mouseRightClick(self):
         return self.old.rightClick()
 
-
+# old = LegacyModule()
 old = oldAPI()
 adapter = Adapter(old)
-c = client(Adapter(oldAPI()))
+c = Adapter(oldAPI())
 
 c.mouseClick()
 c.mouseDbClick()

@@ -1,5 +1,3 @@
-from enum import Enum
-class PetType(Enum):
-    Dog = 'dog'
-    Cat = 'cat'
-print(PetType.Dog.value)
+a = (2,3)
+print(a[0])
+print(type(a))
