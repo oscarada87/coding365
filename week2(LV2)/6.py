@@ -1,6 +1,6 @@
 import abc
 
-class Employee:
+class Employee(abc.ABC):
     def __init__(self, name, salary):
         self.name = name
         self.salary = salary
@@ -44,9 +44,13 @@ class Manager(Employee):
     def getChild(self, number):
         return self.employees[number - 1]
     def myPrint(self):
-        print('My subordinate')
+        # print('My subordinate')
         for i in self.employees:
             i.printInfo()
+    def printInfo(self):
+        print('name: {}'.format(self.name))
+        print('salary: {}'.format(self.salary))
+        self.myPrint()
 
 
 class Developer(Employee):
@@ -72,6 +76,4 @@ manager1.add(developer1)
 manager2.add(developer2)
 manager1.add(manager2)
 manager1.printInfo()
-manager1.myPrint()
 manager2.printInfo()
-manager2.myPrint()

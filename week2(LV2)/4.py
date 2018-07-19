@@ -22,7 +22,7 @@ class oldAPI(LegacyModule):
         print('right click')
 
 # Target Interface
-class clientInterface(metaclass = abc.ABCMeta):
+class clientInterface(abc.ABC):
     @abc.abstractmethod
     def mouseClick(self):
         return NotImplemented

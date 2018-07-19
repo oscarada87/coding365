@@ -14,6 +14,7 @@ class DrinkBuilder:
         return NotImplemented
 
     def howToMake(self):
+        print('開始製作{}...'.format(self.name))
         print('第一步: ',end = '')
         self.brew()
         print('第二步: ',end = '')
@@ -23,19 +24,19 @@ class DrinkBuilder:
     def getName(self):
         return self.name
 
-class MilkTea(DrinkBuilder):
+class MilkTeaBuilder(DrinkBuilder):
     def __init__(self):
-        super(MilkTea, self).__init__('milktea')
+        super(MilkTeaBuilder, self).__init__('奶茶')
     def brew(self):
         print('泡紅茶')
     def flavor(self):
-        print('泡鮮奶')
+        print('倒鮮奶')
     def mix(self):
         print('灑上少許巧克力粉')
 
-class Coffee(DrinkBuilder):
+class CoffeeBuilder(DrinkBuilder):
     def __init__(self):
-        super(Coffee, self).__init__('coffee')
+        super(CoffeeBuilder, self).__init__('咖啡')
     def brew(self):
         print('研磨')
     def flavor(self):
@@ -43,9 +44,16 @@ class Coffee(DrinkBuilder):
     def mix(self):
         print('灑上少許肉桂粉')
 
-a = MilkTea()
-print(a.getName())
-a.howToMake()
-b = Coffee()
-print(b.getName())
-b.howToMake()
+class Director:
+    def __init__(self, builder):
+        self.build = builder
+    def show(self):
+        self.build.howToMake()
+
+a = MilkTeaBuilder()
+D = Director(a)
+D.show()
+
+b = CoffeeBuilder()
+E = Director(b)
+E.show()

@@ -38,7 +38,15 @@ class RAM(Part):
         print('name: ', 'RAM')
         print('cost: ', 50)
 
-class register:
+class Singleton(object):
+    _instance = None
+    def __new__(cls, *args, **kw):
+        if not cls._instance:
+            cls._instance = super(Singleton, cls).__new__(cls, *args, **kw)
+        return cls._instance
+
+
+class register(Singleton):
     def __init__(self):
         self.partList = []
     def addPart(self, part):
@@ -50,6 +58,8 @@ class register:
         print('total: ', amount)
 
 reg = register()
+reg2 = register()
+print(id(reg), id(reg2))
 reg.addPart(CPU())
 reg.addPart(HD())
 reg.addPart(CPU())
