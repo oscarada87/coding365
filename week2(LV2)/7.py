@@ -21,8 +21,6 @@ class DrinkBuilder:
         self.flavor()
         print('第三步: ',end = '')
         self.mix()
-    def getName(self):
-        return self.name
 
 class MilkTeaBuilder(DrinkBuilder):
     def __init__(self):

@@ -1,4 +1,5 @@
 import abc
+import sys
 
 class Part(abc.ABC):
     @abc.abstractmethod
@@ -43,7 +44,13 @@ class Singleton(object):
     def __new__(cls, *args, **kw):
         if not cls._instance:
             cls._instance = super(Singleton, cls).__new__(cls, *args, **kw)
-        return cls._instance
+            return cls._instance
+        else:
+            print('ERROR!!!!')
+            print('Class can\'t announce twice')
+            sys.exit()
+            # cls._instance = super(Singleton, cls).__new__(cls, *args, **kw)
+
 
 
 class register(Singleton):
@@ -59,7 +66,6 @@ class register(Singleton):
 
 reg = register()
 reg2 = register()
-print(id(reg), id(reg2))
 reg.addPart(CPU())
 reg.addPart(HD())
 reg.addPart(CPU())
