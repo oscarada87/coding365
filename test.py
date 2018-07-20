@@ -1,4 +1,2 @@
-if None:
-    print('1')
-else:
-    print('2')
+a = '0123456789'
+print (a[:2])
