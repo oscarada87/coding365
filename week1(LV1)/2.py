@@ -26,7 +26,6 @@ def twoPair(data):
         return 1
     else:
         return 0
-
 def threeOfAKind(data):
     if data[0][0] == data[1][0] == data[2][0]:
         return 1
@@ -43,7 +42,6 @@ def fullHouse(data):
         return 1
     else:
         return 0
-
 def fourOfAKind(data):
     if data[0][0] == data[1][0] == data[2][0] == data[3][0]:
         return 1
@@ -51,13 +49,11 @@ def fourOfAKind(data):
         return 1
     else:
         return 0
-
 def flush(data):
     if data[0][1] == data[1][1] == data[2][1] == data[3][1] == data[4][1]:
         return 1
     else:
         return 0
-
 def straight(data):
     if data[4][0] == 13 and data[0][0] + 4 == data[1][0] + 3 == data[2][0] + 2 == data[3][0] + 1:
         return 1
@@ -65,7 +61,6 @@ def straight(data):
         return 1
     else:
         return 0
-
 def judge(data):
     if straight(data) and flush(data):
         print('7')
@@ -91,7 +86,6 @@ def judge(data):
     else:
         print('0')
         return 0
-
 def main():
     a = [i for i in input().split(' ')]
     data = inputProcess(a)

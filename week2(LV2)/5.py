@@ -1,14 +1,14 @@
 import abc
 
-class Timer():
+class Timer:
     def register(self, timeout, timeOutId, client):
         print('registing...')
         print('timeout: ', timeout)
         print('timeOutId: ', timeOutId)
 
 
-class TimerClient(metaclass = abc.ABCMeta):
-    self.timer = timer()
+class TimerClient(abc.ABC):
+    self.timer = Timer(timeout, timeOutId, self)
     @abc.abstractmethod
     def TimeOut(self, timeOutId):
         return NotImplemented
@@ -21,7 +21,7 @@ class DoorTimerAdapter(TimerClient):
         self.timer = timer
 
 
-class Door(metaclass = abc.ABCMeta):
+class Door(abc.ABC):
     def __init__(self, state = 'Unknown'):
         self.state = state
     def close(self):
