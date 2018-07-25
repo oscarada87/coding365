@@ -5,6 +5,7 @@ def check1(str):
         return 1
     else:
         return 0
+
 def inputProcess(p):
     data = []
     p = p.split(' ')
