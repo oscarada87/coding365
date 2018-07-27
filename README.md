@@ -7,3 +7,6 @@ Coding365數位創新實驗學院(Digital Innovation School)計畫參照法國É
 - [暑假主辦方gitbook](https://coding365-ntut.gitbook.io/piscine/)
 - [舊版交作業](https://140.124.184.228/_Exam/Login)
 - [新版交作業](https://kcoj.ntut.com.tw/login)
+## 壓力大
+- 當花了好幾個小時寫Python，第一次執行 CODE 時
+![](http://1.bp.blogspot.com/-4JjIwYVCMIk/VPcHNVXizGI/AAAAAAAAEEY/UBahyJf3U7M/s1600/8.gif)
