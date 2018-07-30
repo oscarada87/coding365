@@ -103,33 +103,43 @@ class Subscriber:
 
 # 測試
 # 水果公司 0: 體育版 1:科技版 2:娛樂版
-fruitPaper =[Sport(),Tech(),Entertainment()]
-# 訂閱者 Tom Ben Alex Brian
-Tom = Subscriber('Tom')
-Ben = Subscriber('Ben')
-Alex = Subscriber('Alex')
-Brian = Subscriber('Brian')
-# 設置新聞
-fruitPaper[0].setNews('瓊斯盃邀請賽 台灣贏韓國啦!!!!')
-fruitPaper[1].setNews('王小明發佈新書-Python從入門到放棄')
-fruitPaper[2].setNews('一日幕僚觀看數破800萬啦!!!')
-# Tom 訂閱 體育版 科技版
-# Ben 訂閱 體育版
-# Alex 訂閱 體育版 科技版 娛樂版
-# Brian 訂閱 娛樂版
-fruitPaper[0].attach(Tom)
-fruitPaper[0].attach(Ben)
-fruitPaper[0].attach(Alex)
-fruitPaper[1].attach(Tom)
-fruitPaper[1].attach(Alex)
-fruitPaper[2].attach(Alex)
-fruitPaper[2].attach(Brian)
-# 體育版發佈消息
-fruitPaper[0].notify()
-# 科技版發佈消息
-fruitPaper[1].notify()
-# 娛樂版發佈消息
-fruitPaper[2].notify()
-print()
-# 取得訂閱列表
-Tom.getSubscribeList()
+# fruitPaper =[Sport(),Tech(),Entertainment()]
+# # 訂閱者 Tom Ben Alex Brian
+# Tom = Subscriber('Tom')
+# Ben = Subscriber('Ben')
+# Alex = Subscriber('Alex')
+# Brian = Subscriber('Brian')
+# # 設置新聞
+# fruitPaper[0].setNews('瓊斯盃邀請賽 台灣贏韓國啦!!!!')
+# fruitPaper[1].setNews('王小明發佈新書-Python從入門到放棄')
+# fruitPaper[2].setNews('一日幕僚觀看數破800萬啦!!!')
+# # Tom 訂閱 體育版 科技版
+# # Ben 訂閱 體育版
+# # Alex 訂閱 體育版 科技版 娛樂版
+# # Brian 訂閱 娛樂版
+# fruitPaper[0].attach(Tom)
+# fruitPaper[0].attach(Ben)
+# fruitPaper[0].attach(Alex)
+# fruitPaper[1].attach(Tom)
+# fruitPaper[1].attach(Alex)
+# fruitPaper[2].attach(Alex)
+# fruitPaper[2].attach(Brian)
+# # 體育版發佈消息
+# fruitPaper[0].notify()
+# # 科技版發佈消息
+# fruitPaper[1].notify()
+# # 娛樂版發佈消息
+# fruitPaper[2].notify()
+# print()
+# # 取得訂閱列表
+# Tom.getSubscribeList()
+
+a = [0,1,2,3,4,0,0,0,1,2,3,4,0,1,2,3,4,5]
+for i in a:
+    print(i)
+    try:
+        a.remove(0)
+
+    except ValueError:
+        pass
+print(a)
