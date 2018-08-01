@@ -1,0 +1,285 @@
+計算機程式作業
+==============================================================================
+Design Pattern  11
+==============================================================================
+01.  OCP
+
+電腦賣場，販賣各種不同電腦零件，包括記憶體、CPU、HD。
+每一位客戶一次購買許多電腦零件，計算客戶付款總價。
+賣場櫃台 Register 計算所有商品總價。
+賣場以後可能販賣其他新的電腦零件。
+Part是抽象基礎類別，使用多型以彈性增加新零件，不需修改存在的程式碼，實現 OCP 原則。
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+02. OCP 
+
+abstract class Lamp 
+    public void TurnOn()
+    public void TurnOff()
+
+	abstract class Button
+    private Lamp  lamp;
+    public Button(ButtonClient b) 
+    public void Detect() {
+         bool buttonOn = GetState();
+         if (buttonOn) lamp.TurnOn();
+         else          lamp.TurnOff();
+    public bool GetState();
+
+class DeskLamp extends Lamp 
+    public  void TurnOn();
+    public  void TurnOff();
+
+class PushButton extends Button 
+    public PushButton(Lamp b);
+    public bool GetState();
+
+請劃出類別圖，並實作出程式。
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+03. Singleton Pattern
+
+    電腦賣場中只能產生一個櫃台。
+	請劃出類別圖，並修改電腦賣場程式。
+	
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+04. Adapter Pattern
+
+目前已有的是 LegacyModule 的介面使用方式。
++void click()
++void dbClick()
++void rightClick()
+
+如何設計，可以讓客戶端程式依NewRequest使用方式來使用
++void mouseClick()
++void mouseDbClick()
++void mouseRightClick()
+
+請劃出類別圖，並實作出程式。
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+05. Adapter Pattern, Interface
+
+門開啟一段時間，需要Timer通知。
+Timer使用者(TimedDoor)要登記超過一個timeout，當門一打開，即傳送登記訊息給Timer要求一個timeout通知。
+當timeout尚未過期，門又被開啟，就再登記一個 timeout通知。
+
+class Timer 
+    public void register(int timeout, int timeOutId, TimerClient client)
+
+abstract class TimerClient 
+    public abstract  void TimeOut(int timeOutId)
+
+abstract class TimerClient 
+    private Timer timer
+    public abstract  void TimeOut(int timeOutId)
+    public void needNotify(int timeout, int timeOutId) 
+    	    timer.register(timeout, this)
+
+DoorTimerAdapter extends TimerClient
+
+abstract class Door 
+     private String state
+     public void close()
+     public void open()
+     public boolean isDoorOpen()
+     public abstract void enter()
+
+class TimedDoor extends Door 
+    private TimerClient timerClient
+    private int timerID
+    private int timeout 
+    TimedDoor(int timeout)
+    public void enter() {
+        // "enter, register timer, door open"
+        timerClient.needNotify(timeout, timerID++);
+    }
+    public void setAdapter(TimerClient timerClient)
+    public void doorTimeOut(int timeOutId)
+
+public class TestTimerAdapter {
+    public static void main(String[] args) {
+        int timeout = 5;
+        Timer timer = new Timer();	
+        TimedDoor timedDoor = new TimedDoor(timeout);
+        TimerClient dTA = new DoorTimerAdapter(timedDoor, timer);
+        timedDoor.setAdapter(dTA);
+        System.out.println("Is door open: "+timedDoor.isDoorOpen());
+        timedDoor.enter();
+        System.out.println("Is door open: "+timedDoor.isDoorOpen());
+    }
+}
+
+請劃出類別圖，並實作出程式。
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+06. Composite Pattern
+
+abstract class Employee   
+    private String name;  
+    private double salary;    
+
+    public void setName(String name);
+    public void setSalary(double salary);
+    public String getName();
+    public double getSalary();
+	
+    public abstract void add(Employee employee);  
+    public abstract void remove(Employee employee);  
+    public abstract Employee getChild(int i);  
+    public abstract void myPrint();  //印出所管理員工姓名、薪水
+    public void print();  //印出自己的姓名薪水，呼叫 myPrint()
+
+class Manager extends Employee    
+    private List<Employee> employees = new ArrayList<Employee>();  
+	
+    public Manager(String name,double salary);     
+    public void add(Employee employee);
+    public Employee getChild(int i);
+    public void myPrint(); //印出所管理員工姓名、薪水  
+    public void remove(Employee employee);
+	
+class Developer extends Employee{  
+    public Developer(String name,double salary);
+    public void myPrint() { /*leaf node is not applicable*/  }  
+    public void add(Employee employee) { /*leaf node is not applicable*/  }
+    public Employee getChild(int i) { return null; /*leaf node is not applicable*/ }
+    public void remove(Employee employee) { /*leaf node is not applicable*/  }
+  
+class TestEmployee { 
+    public static void main(String[] args) {
+        Employee manager1 = new Manager("Tom",80000);
+        Employee manager2 = new Manager("Mary",70000);
+        Employee developer1 = new Developer("John",50000);
+        Employee developer2 = new Developer("Kevin",40000);
+        manager1.add(developer1);
+        manager2.add(developer2);
+        manager1.add(manager2);
+        manager1.print();
+        manager2.print();
+    }
+}
+
+請劃出類別圖，並實作出程式。
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+07. Builder Pattern
+
+飲料店販賣各種咖啡與奶茶:
+
+奶茶(MilkTea)製作方式
+  brew:泡紅茶
+  flavor:加入鮮奶
+  mix:灑上少許巧克力粉
+咖啡(Coffee)製作方式
+  brew: 研磨
+  flavor:加入奶精
+  mix:灑上少許肉桂粉
+
+設計一個飲料製作的abstract 類別 (Builder)，
+設計 BuilderDirector 類別。
+
+畫出類別圖，並實作出程式。
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+08. Factory Method Pattern
+
+人(People)照顧寵物 (Pet) 
+寵物有貓、狗，均有相同行為
+
+class Pet
+    public eat();
+    public walk();
+    public sleep();
+
+class PetFactory 
+    private enum PetType {Dog, Cat}
+    public static Pet CreatePet(PetType pType) 
+
+增加新寵物 class Bird，不須修改 People、Pet、Dog、Cat。
+何修改PetFactory的swicth case
+
+畫出類別圖，並實作出程式。
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+09. Abstract Factory Pattern
+
+一個農場公司，專門銷售各類水果，包括葡萄Grape、草莓Strawberry、蘋果 Apple
+水果與其他植物不同，水果是可採食。水果介面包括：種植plant()，生長grow()及收穫harvest()。
+蘋果是多年生植物，多出treeAge，描述蘋果樹的樹齡。
+葡萄分有籽和無籽兩種。
+建立各種水果都適用的介面，與農場其他植物區分。
+
+農場園丁FruitGardener類別
+根據客戶端要求，建構不同的水果物件-Apple, Grape或Strawberry。
+若接到不合法要求，會拋出BadFruitException例外。
+
+農場規模變大，管理專業化。每種農作物都有專門園丁管理，形成規模化和專業化生產。
+蘋果由蘋果園丁負責，草莓有草莓園丁負責。
+蘋果園丁、草莓園丁實作抽象的“水果園丁”介面。
+
+農場公司新發展 - 引進塑膠大棚技術，在大棚裏種植熱帶（Tropical）和亞熱帶的水果和蔬菜。
+系統中，產品分成兩個結構：水果Fruit和蔬菜Veggie。
+系統產品分成兩個層級結構：Fruit, Veggie，及產品族：Tropical, Northern。
+
+種在田間的北方作物與種在大棚的熱帶作物，分屬兩個產品族。北方作物要種植一起，大棚作物要另外種植一起。 
+使用一個工廠族封裝它們的建構過程。其層級結構應與產品族層級結構完全平行
+
+public class NorthernGardener implements Gardener{
+   //  水果的工廠方法
+   public Fruit createFruit(String name)  {
+        return new NorthernFruit(name);
+    }
+   //  蔬菜的工廠方法
+   public Veggie createVeggie(String name)  {
+        return new NorthernVeggie(name);
+    }
+
+畫出類別圖，並實作出程式。
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+10. Strategy Pattern
+
+X公司做一套成功的模擬鴨子遊戲 SimUDuck
+遊戲中出現各種鴨子，一邊游泳戲水，一邊呱呱叫。
+系統設計使用 Object Orientation 技術，設計鴨子的Superclass，讓各種鴨子繼承。
+所有鴨子都會呱呱叫，也會游泳，所以Superclass設計quack(), swim() operation.
+由於每一種鴨子的外觀都不同，所以display是一個abstract operation。每個subclass都要實作display()
+
+新版需要會飛的鴨子。
+不是所有Duck都會飛。
+橡皮鴨不會呱呱叫，只會吱吱叫。
+誘餌鴨(Decoy Duck) -假鴨，不會飛也不會叫。
+每週會有新Duck產品，新產品新的能力還未定。
+會飛的Duck，飛行動作可能有多種變化。
+設計二個介面：FlyBehavior與QuackBehavior，以及實作具體行為子類別。
+Duck將fly()和quack()的動作，委任(delegate)具體行為子類別處理，
+
+abstract class Duck
+    QuackBehavior quackBehavior; //每個鴨子都參考一個實作
+    //QuackBehavior介面的物件
+    //. . .
+    public void setQuackBehavior(QuackBehavior q) 
+        quackBehavior = q;
+    public void performQuack() 
+        quackBehavior.quack(); 
+		//不親自處理呱呱叫的行為，而是
+        //「委任」quackBehavior物件幫Duck處理，例如 //呱呱叫
+		
+畫出類別圖，並實作出程式。
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+11. Observer Pattern
+
+建立一個股票通知資訊系統，有免費會員和VIP尊榮會員可看到股票資訊，不同會員等級得到資訊不一樣。
+當股價變動時，會員得到資訊要立即跟著改變。須允許未來可擴充不同會員等級，甚至提供股票資訊給其他廠商。
+
