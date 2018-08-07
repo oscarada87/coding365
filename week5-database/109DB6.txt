@@ -1,0 +1,156 @@
+﻿計算機程式作業
+==============================================================================
+Database  4
+
+在 Linux VM 建立 MySQL Server，使用者在 Client 端操作資料庫。
+==============================================================================
+
+01. 
+
+建立以下資料表單，並加入十筆資料。
+Data (class, studentId, Name, Chinese_Score, Math_Score, English_Score)
+
+請實作資料庫系統功能，包括 SQL 與程式。
+(1) 列出所有國文及數學和英文成績都不及格的同學班級、學號、姓名。
+(2) 列出班級學生人數最多的前三個班級名稱、人數。
+(3) 列出每一個班級總分最高的同學班級、學號、姓名。
+(4) 列出人數最多的班級，以及其人數。
+(6) 列出每一個班級高於其國文平均的同學的班級、學號、姓名。
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+02.
+
+建立以下資料表單，並分別加入十筆資料。
+四個資料庫表格(STUDENT、COURSE、CLASS、GRADE_REPORT)，其中
+STUDENT 記錄學生資料(學號、姓名、入學年、主修系所)；
+COURSE 記錄系所開設的課程資料(課程編號、課程名稱、學分數、開課系所)；
+CLASS 記錄每學期課程的開班資訊(班編號、課程編號、學期、學年、教師)；
+GRADE_REPORT 記錄學生修課成績(學生、班編號、分數)。
+
+STUDENT(StudentId, Name, YearOfEntrance, Major)
+COURSE(CourseNo, CourseTitle, CreditHours, Department)
+CLASS(ClassId, CourseNo, Semester, Year, Instructor)
+GRADE_REPORT(StudentId, ClassId, Grade)
+
+請實作資料庫系統功能，包括 SQL 與程式。
+(1) 列出資工系學生(Major='CSIE')的學號與姓名，並根據學號(StudentId)順序由小而大排序。
+(2) 列出教師「Emily」(Instructor='Emily')於2016和2017年所教課程資訊，包含課程編號和課程名稱(CourseTitle)。假設CLASS.Year的資料型態為CHAR。
+(3) 列出學生「張小花」修過課程名稱、該課程開設學期(Semester)、年份(Year)、成績(Grade)。
+(4) 列出每一系所開多少門課程。
+(5) 找出至少有一門課程的成績低於60分的學生，列出該學生的學號、姓名。
+(6) 找出平均成績低於60分的學生，列出該學生學號與姓名。
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+03. 註冊資料庫
+
+建立以下五個資料表單，並分別加入十筆資料。
+
+STUDENT(Snum, Sname, Major, Level, Age) 
+CLASS(Cname, Time, Room, FID) 
+ENROLLED(Snum, Cname)
+FACULTY(FID, Fname, DeptID) 
+DEPARTMENT(DeptID, Dname)
+
+其中 ENROLLED ，代表學號註冊在哪一個班級。
+請實作資料庫系統功能，包括 SQL 與程式。
+
+1. Insert a new student, <‘102590001’, ‘Steven Chen’, ‘CSIE’, ‘FR’, 18>, into the database.
+   Print the STUDENT data.
+2. Retrieve the names of all students who are enrolled in the class 'Database Systems'.
+3. Find the names of all Juniors (Level = JR) who are enrolled in a class taught by 'David'.  
+4. Find the names of all students who are enrolled in two classes that meet at the same time.
+5. Print the Level and the average age of students for that Level, for each Level. (Use aggregate functions)
+6. Find the names of students who are not enrolled in any class.
+7. Update the Time and Room attributes of the CLASS relation to Time='09:10:00' and Room='TB1322' for the tuple with Cname = 'Database Systems'.
+8. Create a view “DEPT_INFO” that consists of two attributes 'Dept_Name' and 'Num_of_Faculty' from the DEPARTMENT and FACULTY.
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+04.
+
+設計一個簡易醫療資料庫系統，至少包含以下資訊:
+1. A patient is identified by a PatientNo. For each patient, the name, sex, address, and the names of emergency contacts must be recorded. 
+2. A patient can have more than one emergency contact person.
+3. A doctor is identified by an SSN. For each doctor, the name, specialty, and years of experience must be recorded.
+3. A doctor may treat many patients in the hospital, 
+   and a patient may be treated by a number of different doctors while they are in the hospital. 
+   For each treatment, the doctors prescribe drugs for patients. 
+   Each prescription has a date and a quantity associated with each prescribed drug.
+4. Doctors may recommend tests for some patients to be conducted in labs. 
+   Each test has a date and is identified by a TestNo. A test may include more than one test item. 
+   Each test item has an ID, name, and associated result.
+5. Doctors  may  recommend  patients  for  hospitalization  (i.e.,  inpatient  care).
+6. Inpatients (patients who require at least one overnight stay in hospital) are admitted to the hospital and assigned beds, and discharged once their treatment is completed. The admitted and discharged dates must be recorded. 
+   Each patient room has a unique room number and can have different number of beds depending on the class of the room. 
+   Each bed in the patient room has a unique bed number.
+
+設計 ER diagram，包括必要 entities, relationships, and attributes. 
+1. 每一個 Table 設定 primary key.
+2. 每一個 relationship 設定 cardinality ratio, 和 participation constraints. 
+
+建置資料庫系統，每一個 Table 至少預先輸入十筆資料，請實作資料庫系統功能，包括 SQL 與程式。
+1. 加入一個特定病人被某一位醫生治療，並建議住院的紀錄。
+2. 修改某一位病人的檢驗資料。
+3. 查詢特定醫生治療過哪些病人。
+4. 查詢特定病人由那些醫生做過哪些檢驗。
+5. 查詢特定病人由那些醫生建議住院。
+6. 刪除某一位病人的所有醫療資料。
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+05.
+
+設計一個訂單處理資料庫系統，至少包含以下資訊:
+Customer (Cust#, Cname, City) 
+Order(Order#, Odate, Cust#, Ord_Amt) 
+Order_Item(Order#, Item#, Qty) 
+Item(Item#, Unit_Price)
+Shipment(Order#, Warehouse#, Ship_date) 
+Warehouse(Warehouse#, City)
+
+Ord_Amt 是一筆訂單 (order) 的總額; 
+Odate 是訂單日期; 
+Ship_date 是訂單貨品從倉儲 (warehouse)出貨日期。
+訂單貨品可以從任何倉儲送出。 
+
+建置資料庫系統，每一個 Table 至少預先輸入十筆資料，請實作資料庫系統功能，包括 SQL 與程式。
+(1)	Create the table for the relation Order.
+(2)	List Cust#, Cname, City for all the customers.
+(3)	List the Order# and Ship_date for all orders shipped from Warehouse# "W2".
+(4)	For all the order items purchased by the customer whose Cust#=‘C001’, list the Order#, Item#, and Qty for those items that have a unit price greater than 100.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+06.
+
+設計一個簡易電子書城資料庫系統，至少包含以下資訊:
+1. Every book has a title, isbn, year, and price. 
+   The store also keeps the author and publisher for any book. 
+   Each book has a publisher and can have more than one author.
+2. For authors, the database keeps the ssn, name, address and the url of their homepage. 
+   For publishers, the database keeps the name, address, phone number, and the url of their website.
+3. The store has several warehouses, each of which has a code (i.e., ID), address, and phone number.
+4. The warehouse stocks several books. A book may be stocked at multiple warehouses. 
+   The database records the number of copies of a book stocked at various warehouses.
+5. The bookstore keeps the name, address, email-id, and phone number of its customers.
+6. A customer owns several shopping baskets. 
+   A shopping basket is identified by a basketID and contains several books.
+7. Some shopping baskets may contain more than one copy of same book. 
+   The database records the number of copies of each book in any shopping basket.
+
+設計 ER diagram，包括必要 entities, relationships, and attributes. 
+1. 每一個 Table 設定 primary key.
+2. 每一個 relationship 設定 cardinality ratio, 和 participation constraints. 
+
+建置資料庫系統，每一個 Table 至少預先輸入十筆資料，請實作資料庫系統功能，包括 SQL 與程式。
+1. 加入某一位作者被某一出版社出書，放在某幾個倉庫中。
+2. 修改某一本書的倉儲資料。
+3. 修改某一位客戶的基本資料。
+4. 查詢特定作者出過哪些書的資訊。
+5. 查詢特定出版社幫那些作者出過書。
+6. 查詢特定作者有哪些讀者買了他們的書。
+7. 查詢特定作者有哪些讀者買了他們的書，分別在那些倉庫送貨。
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
