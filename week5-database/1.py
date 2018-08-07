@@ -12,6 +12,7 @@ server = SSHTunnelForwarder(
         remote_bind_address = ('127.0.0.1', 3306),
         local_bind_address = ('0.0.0.0', 3306)
         )
+print('----Server Start----')
 server.start()
 # mysql connection setting
 connection = pymysql.connect('127.0.0.1',
@@ -79,10 +80,29 @@ try:
     #     for i in data:
     #         print(i[2])
     # 第二題
+    # with connection.cursor() as cursor:
+    #     cursor.execute("SELECT class, count( * ) AS count FROM Data GROUP BY class ORDER BY class ASC LIMIT 3 ")
+    #     data = cursor.fetchall()
+    #     print(data)
+
+    # 第三題
+    # with connection.cursor() as cursor:
+    #     cursor.execute("select class, studentId, name from (select * , Chinese_Score + Math_Score + English_Score as score from Data order by score DESC limit 3) as T")
+    #     data = cursor.fetchall()
+    #     print(data)
+
+    # 第四題
     with connection.cursor() as cursor:
-        cursor.execute("SELECT count( * ) AS count FROM Data GROUP BY class ORDER BY class ASC LIMIT 3 ")
+        cursor.execute("SELECT class, count( * ) AS count FROM Data GROUP BY class ORDER BY class ASC LIMIT 1 ")
         data = cursor.fetchall()
         print(data)
+
+    # 第五題
+    with connection.cursor() as cursor:
+        cursor.execute("select class, studentId, name from(select * from Data where Chinese_Score > (select avg(Chinese_Score) from Data as chineseAvg)) as T")
+        data = cursor.fetchall()
+        print(data)
+
 
 finally:
     connection.close()
