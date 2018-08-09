@@ -1,3 +1,3 @@
-a= '0123456789'
-
-print(a[:-1])
+a= 'ab'
+a = a.split(' ')
+print(a)

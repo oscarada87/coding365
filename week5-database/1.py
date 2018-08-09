@@ -80,10 +80,10 @@ try:
     #     for i in data:
     #         print(i[2])
     # 第二題
-    # with connection.cursor() as cursor:
-    #     cursor.execute("SELECT class, count( * ) AS count FROM Data GROUP BY class ORDER BY class ASC LIMIT 3 ")
-    #     data = cursor.fetchall()
-    #     print(data)
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT class, count( * ) AS count FROM Data GROUP BY class ORDER BY class ASC LIMIT 3 ")
+        data = cursor.fetchall()
+        print(data)
 
     # 第三題
     # with connection.cursor() as cursor:
