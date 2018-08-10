@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import re
-import urllib
+
 
 def crawl(keyWord):
     input_list = []
