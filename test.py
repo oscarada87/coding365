@@ -1,2 +1,3 @@
-a = '0123456789'
-print(a[-5:])
+a = {'123':'abc','2':'abcd'}
+if 'abc' in a:
+    print('CHECK!')

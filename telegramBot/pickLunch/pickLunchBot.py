@@ -8,11 +8,10 @@ from pprint import pprint
 from telepot.loop import MessageLoop
 import re
 
-TOKEN = "621337650:AAGKDefEVqbk0WMiIaWCfgJ4-GAO3iev4xA"
-HELP ='''/eat @pickLunch_bot --- 隨機資料庫中一家餐廳
-/crawl [關鍵字] @pickLunch_bot --- 關鍵字搜尋並更新資料庫
-/top10 @pickLunch_bot --- 列出資料庫前10筆資料
-/help @pickLunch_bot --- 指令列表
+TOKEN = ""
+HELP ='''/eat [數字]@pickLunch_bot --- 隨機資料庫中指定數量(預設1家)餐廳
+/crawl [關鍵字]@pickLunch_bot --- 關鍵字搜尋並更新資料庫
+/help@pickLunch_bot --- 指令列表
 '''
 def crawl(keyWord):
     input_list = []
@@ -29,13 +28,20 @@ def crawl(keyWord):
             input_list.append((meta['title'], address ,meta['href']))
     return input_list
 
-def top10(data, msg):
+def eat(data, msg, number = 1):
     chat_id = msg['chat']['id']
-    for i in range(10):
-        restaurant = data[i][0] + '\n' + data[i][1] + '\n' + data[i][2]
+    try:
+        if len(data[chat_id]) <= 0:
+            bot.sendMessage(chat_id, '目前資料庫中沒有餐廳!!')
+            return 0
+    except BaseException:
+        bot.sendMessage(chat_id, '目前資料庫中沒有餐廳!!')
+    output = random.sample(data[chat_id], number)
+    for i in output:
+        restaurant = i[0] + '\n' + i[1] + '\n' + i[2]
         bot.sendMessage(chat_id, restaurant)
 
-data = []
+data = {}
 
 def handle(msg):
     pprint(msg)
@@ -54,13 +60,16 @@ def handle(msg):
     else:
         pass
     if command[0] == '/eat':
-        randNum = random.randint(0,len(data))
-        restaurant = data[randNum][0] + '\n' + data[randNum][1] + '\n' + data[randNum][2]
-        bot.sendMessage(chat_id, restaurant)
+        length = len(command)
+        if length == 1:
+            eat(data, msg)
+        else:
+            eat(data, msg, int(command[1]))
+
     elif command[0] == '/crawl':
         try:
             bot.sendMessage(chat_id, '關鍵字: {}...爬蟲中...'.format(command[1]))
-            data = crawl(command[1])
+            data[chat_id] = crawl(command[1])
             if len(data) == 0:
                 bot.sendPhoto(chat_id,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGkV4N8ErJIFIrAac1IGcvagr5Du89GsZZwJg25J3js4THChjyjw',reply_to_message_id = message_id)
                 bot.sendMessage(chat_id, '你確定{}是可以吃的嗎???'.format(command[1]), reply_to_message_id = message_id)
@@ -70,9 +79,6 @@ def handle(msg):
             bot.sendMessage(chat_id, '關鍵字: 北科大...爬蟲中...')
             data = crawl('北科大')
             bot.sendMessage(chat_id, '資料更新完成!!')
-
-    elif command[0] == '/top10':
-        top10(data, msg)
 
     elif command[0] == '/help':
         bot.sendMessage(chat_id, HELP)

@@ -7,7 +7,7 @@ from telepot.loop import MessageLoop
 import requests
 from bs4 import BeautifulSoup
 
-TOKEN = "619435504:AAHK1B8KlY8ef-bsuvy8_35c9EBQnEP_Ijw"
+TOKEN = ""
 games = []
 HELP ='''/AABB new --- 新增遊戲
 /AABB guess [1234] --- 猜數字
