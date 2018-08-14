@@ -1,0 +1,50 @@
+輸入規則
+開始前請
+加入遊戲輸入:
+	玩家名稱 “/” join
+開始遊戲輸入:
+	Start
+
+遊戲開始時
+吹牛時喊:
+	玩家名稱,”個數”,”數字”
+	Ex:
+		我,1(個),1(數字)
+覺得對方吹牛要抓時:
+	自己名稱,”抓”
+
+****中間都以” , ”區隔*****
+
+Class Player
+data:list 玩家開始時的遊戲資訊 例如骰子數量
+name:string
+Name():string 
+    //回傳player的名字
+Data():tuple
+    //回傳你的骰子
+
+Class Game
+member:list 儲存成員 成員為player類別
+I:標記第幾個玩家用的
+Time:計次用的
+Join():Void 將player插入member裡
+Class DiceGame(Game)
+StartData(): Void 
+    //將隨機六個數字插入player 裡的data 並sort
+StartGame():Void 
+    
+	//內有stander儲存裡玩家喊的骰子資料
+    // 輸入資料(格式(上面有寫))並傳到ReviewInpu裡檢查是否錯誤 抓了就	呼叫WinOrLose(inpu,stander,member)檢查是否獲勝
+ReviewInpu():Boolean or None
+    //傳入 妳的輸入 
+    //檢查是否有錯誤輸入 無回傳True 錯誤回傳字串
+    //使用到global  temp
+WinOrLose(i,inpu,stander):
+    //檢查是否獲勝
+    //yrdata 儲存玩家正確的骰子
+    //num1 儲存玩家骰子1的數量
+    //numinpu儲存玩家喊的數字的數量
+    //判斷是否有吹牛
+Main(): void
+    //將join的玩家設定成Player類別
+    //並插入DiceGame的member與temp裡

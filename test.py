@@ -1,3 +1,2 @@
-a = {'123':'abc','2':'abcd'}
-if 'abc' in a:
-    print('CHECK!')
+a = (1,3,3,3,4,6)
+print(str(a))

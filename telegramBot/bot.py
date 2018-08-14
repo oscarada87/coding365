@@ -7,7 +7,7 @@ from telepot.loop import MessageLoop
 import requests
 from bs4 import BeautifulSoup
 
-TOKEN = ""
+TOKEN = "619435504:AAHK1B8KlY8ef-bsuvy8_35c9EBQnEP_Ijw"
 games = []
 HELP ='''/AABB new --- 新增遊戲
 /AABB guess [1234] --- 猜數字
@@ -78,6 +78,7 @@ def stock_crawl(stock):
 def handle(msg):
     pprint(msg)
     try:
+        # pprint(telepot.glance(msg))
         chat_id = msg['chat']['id']
         command = msg['text'].split(' ')
         message_id = msg['message_id']

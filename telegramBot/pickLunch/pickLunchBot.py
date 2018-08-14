@@ -8,7 +8,7 @@ from pprint import pprint
 from telepot.loop import MessageLoop
 import re
 
-TOKEN = ""
+TOKEN = "621337650:AAGKDefEVqbk0WMiIaWCfgJ4-GAO3iev4xA"
 HELP ='''/eat [數字]@pickLunch_bot --- 隨機資料庫中指定數量(預設1家)餐廳
 /crawl [關鍵字]@pickLunch_bot --- 關鍵字搜尋並更新資料庫
 /help@pickLunch_bot --- 指令列表
@@ -70,7 +70,7 @@ def handle(msg):
         try:
             bot.sendMessage(chat_id, '關鍵字: {}...爬蟲中...'.format(command[1]))
             data[chat_id] = crawl(command[1])
-            if len(data) == 0:
+            if len(data[chat_id]) == 0:
                 bot.sendPhoto(chat_id,'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGkV4N8ErJIFIrAac1IGcvagr5Du89GsZZwJg25J3js4THChjyjw',reply_to_message_id = message_id)
                 bot.sendMessage(chat_id, '你確定{}是可以吃的嗎???'.format(command[1]), reply_to_message_id = message_id)
             else:
