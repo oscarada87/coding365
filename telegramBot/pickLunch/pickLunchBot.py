@@ -63,6 +63,8 @@ def handle(msg):
         length = len(command)
         if length == 1:
             eat(data, msg)
+        elif int(command[1]) > 10:
+            bot.sendPhoto(chat_id,'https://i.ytimg.com/vi/AWgDNOxroB8/maxresdefault.jpg',reply_to_message_id = message_id)
         else:
             eat(data, msg, int(command[1]))
 

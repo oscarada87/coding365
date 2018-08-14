@@ -6,7 +6,7 @@ import random
 from pprint import pprint
 from telepot.loop import MessageLoop
 
-TOKEN = "695612325:AAGMtTb2_3LBB2Gr8JlJwwp3QHT1erjkyPY"
+TOKEN = ""
 HELP = ""
 games = []
 

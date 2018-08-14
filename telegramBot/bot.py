@@ -4,8 +4,7 @@ import telepot
 import random
 from pprint import pprint
 from telepot.loop import MessageLoop
-import requests
-from bs4 import BeautifulSoup
+
 
 TOKEN = "619435504:AAHK1B8KlY8ef-bsuvy8_35c9EBQnEP_Ijw"
 games = []
@@ -13,7 +12,6 @@ HELP ='''/AABB new --- 新增遊戲
 /AABB guess [1234] --- 猜數字
 /AABB history --- 歷史紀錄
 /AABB answer --- 秘密
-/stock [股票代碼] --- 查詢股票現在價格
 /help --- 指令列表
 備註: 需要設定username才能玩AABB的遊戲'''
 
@@ -142,11 +140,6 @@ def handle(msg):
         article = [{'type':'article','id':'1','title':games[0].get_answer(),'input_message_content':{'message_text':'TOP SECRET!!'}}]
         print(article)
         bot.answerInlineQuery(query_id, article)
-    # 股票訊息
-    elif command[0] == '/stock':
-        stockData = stock_crawl(command[1])
-        bot.sendMessage(chat_id, stockData[0])
-        bot.sendMessage(chat_id, '價格: ' + stockData[1])
     # 幫助訊息
     elif command[0] == '/help':
         bot.sendMessage(chat_id, HELP)
