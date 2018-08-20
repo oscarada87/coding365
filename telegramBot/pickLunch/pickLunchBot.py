@@ -8,7 +8,7 @@ from pprint import pprint
 from telepot.loop import MessageLoop
 import re
 
-TOKEN = "621337650:AAGKDefEVqbk0WMiIaWCfgJ4-GAO3iev4xA"
+TOKEN = ""
 HELP ='''/eat [數字]@pickLunch_bot --- 隨機資料庫中指定數量(預設1家)餐廳
 /crawl [關鍵字]@pickLunch_bot --- 關鍵字搜尋並更新資料庫
 /help@pickLunch_bot --- 指令列表
@@ -44,21 +44,33 @@ def eat(data, msg, number = 1):
 data = {}
 
 def handle(msg):
-    pprint(msg)
     global data
-    try:
+    pprint(msg)
+    typeOfMsg = telepot.flance(msg)[0]
+    if typeOfMsg == 'chat':
+        query = ''
         chat_id = msg['chat']['id']
         flag =  msg['text'].split('@')[1]
         command = msg['text'].split('@')[0]
         command = command.split(' ')
         message_id = msg['message_id']
         username = '@' + msg['from']['username']
-    except BaseException:
+        # print(command[0])
+        # print(flag)
+
+    elif typeOfMsg == 'inline_query':
+        command = [None]
+        flag = 'pickLunch_bot'
+        query = msg['query']
+        query_id = msg['id']
+    else:
         pass
+
     if flag != 'pickLunch_bot':
         return 0
     else:
         pass
+
     if command[0] == '/eat':
         length = len(command)
         if length == 1:
@@ -84,6 +96,11 @@ def handle(msg):
 
     elif command[0] == '/help':
         bot.sendMessage(chat_id, HELP)
+
+    elif query == 'surprise':
+        article = [{'type':'article','id':'1','title':'彩蛋','input_message_content':{'message_text':'你找到彩蛋了!'}}]
+        print(article)
+        bot.answerInlineQuery(query_id, article)
 
 bot = telepot.Bot(TOKEN)
 MessageLoop(bot, handle).run_as_thread()
